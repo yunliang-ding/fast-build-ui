@@ -9,8 +9,8 @@ class Html {
   }
   @action setTagPosition = (key, left, top) => {
     let tag = this.tags.find(item => item.targetKey === key)
-    tag.style.left = tag.style.left + left
-    tag.style.top = tag.style.top + top
+    tag.style.left = tag.style.left + left < 0 ? 0 : tag.style.left + left
+    tag.style.top = tag.style.top + top < 0 ? 0 : tag.style.top + top
     this.tags = [...this.tags] // render
   }
 }

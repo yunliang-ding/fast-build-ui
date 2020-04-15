@@ -1,5 +1,6 @@
 import * as React from "react"
 import './index.less'
+import { Canvas } from 'component'
 import { Box } from '../tags/index'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
@@ -31,14 +32,14 @@ class Layout extends React.Component {
     })
   }
   render() {
-    const { tags, addTag, setTagPosition } = this.props.Html
+    const { tags } = this.props.Html
     return <div className='app-layout'>
       <SplitPane
         split="vertical"
         step={10}
-        defaultSize='300px'
+        defaultSize={300}
         minSize={40}
-        maxSize='50%'
+        maxSize={300}
         onDragStarted={() => (document.body.style.cursor = 'col-resize')}
         onDragFinished={
           () => {
@@ -56,29 +57,14 @@ class Layout extends React.Component {
             <i className='iconfont icon-jiantou2'></i>
           </div>
         </div>
-        <div
-          className='app-layout-right'
-          onDrop={
-            (event) => {
-              event.preventDefault()
-              let { pageX, pageY, key, component } = JSON.parse(event.dataTransfer.getData('data'))
-              if (key === null) { // push
-                addTag(component, event.pageX - pageX, event.pageY - pageY)
-              } else {
-                setTagPosition(key, event.pageX - pageX, event.pageY - pageY)
-              }
+        <div className='app-layout-right'>
+          <Canvas>
+            {
+              tags.map(item => {
+                return <Box {...item} />
+              })
             }
-          } onDragOver={
-            (ev) => {
-              ev.preventDefault()
-            }
-          }
-        >
-          {
-            tags.map(item => {
-              return <Box {...item} />
-            })
-          }
+          </Canvas>
         </div>
       </SplitPane>
     </div>

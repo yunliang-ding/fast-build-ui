@@ -1,0 +1,33 @@
+.app-console{
+  position: absolute;
+  bottom: 0;
+  height: 300px;
+  width: 100%;
+  border: 1px solid #171717;
+  .app-console-header{
+    height:30px;
+    display:flex;
+    align-items: center;
+    .app-console-header-item:hover{
+      background: #222;
+    }
+    .app-console-header-item, .app-console-header-item-active{
+      height: 100%;
+      color: #fff;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      transition: .2s;
+      cursor: pointer;
+    }
+    .app-console-header-item-active{
+      background: #222;
+    }
+  }
+  .app-console-code{
+    height: calc(~'100% - 30px');
+    width: 100%;
+  }
+}

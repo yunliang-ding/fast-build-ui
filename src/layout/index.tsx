@@ -1,6 +1,6 @@
 import * as React from "react"
 import './index.less'
-import { Canvas } from 'component'
+import { Canvas, Console } from 'component'
 import { Box } from '../tags/index'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
@@ -65,6 +65,21 @@ class Layout extends React.Component {
               })
             }
           </Canvas>
+          <Console
+            placement='bottom'
+            style={{
+              code: '{}',
+              language: 'css'
+            }}
+            attr={{
+              code: '{}',
+              language: 'json'
+            }}
+            event={{
+              code: '{}',
+              language: 'javascript'
+            }}
+          />
         </div>
       </SplitPane>
     </div>

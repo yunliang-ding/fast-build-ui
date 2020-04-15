@@ -1,36 +1,17 @@
 import { observable, action, useStrict, toJS } from 'mobx'
 useStrict(true)
 class Html {
-  @observable tags = {
-    style: {
-      color: '#fff',
-      background: '#1890ff',
-      width: 100,
-      height: 40,
-      left: '0',
-      top: '0',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      fontSize: 12
-    },
-    key: Math.random(),
-    attr: {
-      className: 'yui-btn'
-    },
-    event: {
-      onClick: () => {
-        console.log(1234)
-      }
-    },
-    children: 'hello world!'
+  @observable tags = []
+  @action addTag = (component:any, left, top) => {
+    component.targetKey = Math.random()
+    this.tags.push({...component})
+    this.setTagPosition(component.targetKey, left, top)
   }
-
-  @action setTagPosition = (left, top) => {
-    this.tags.style.left = parseInt(this.tags.style.left) + left + 'px'
-    this.tags.style.top = parseInt(this.tags.style.top) + top + 'px'
-    this.tags = {...this.tags} // render
+  @action setTagPosition = (key, left, top) => {
+    let tag = this.tags.find(item => item.targetKey === key)
+    tag.style.left = tag.style.left + left
+    tag.style.top = tag.style.top + top
+    this.tags = [...this.tags] // render
   }
 }
 const html = new Html()

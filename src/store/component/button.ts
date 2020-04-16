@@ -2,7 +2,6 @@ class Button {
   name: string
   style: any
   attr: any
-  event: any
   children: any
   constructor() {
     this.name = '按钮'
@@ -22,11 +21,6 @@ class Button {
     }
     this.attr = {
       className: 'yui-btn'
-    }
-    this.event = {
-      onClick: () => {
-        console.log(1234)
-      }
     }
   }
 }

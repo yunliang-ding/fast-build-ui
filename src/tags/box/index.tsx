@@ -12,6 +12,8 @@ class Box extends React.Component {
   }
   render() {
     const { style, attr, event, targetKey, children, active, onClick } = this.props
+    let subAttr = JSON.parse(JSON.stringify(attr)) // deep
+    delete subAttr.style // 删除这个属性
     return <div
       className={active ? 'fast-ui-box-active' : 'fast-ui-box'}
       style={{
@@ -30,7 +32,7 @@ class Box extends React.Component {
       <div
         key={Math.random()}
         style={style}
-        {...attr}
+        {...subAttr}
         {...event}
         draggable={true}
         onDragStart={

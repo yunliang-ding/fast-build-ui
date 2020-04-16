@@ -104,7 +104,7 @@ const config = {
   },
   plugins: [
     new MonacoWebpackPlugin({
-      languages: ['javascript', 'html', 'css']
+      languages: ['javascript', 'json', 'css']
     }),
     new MiniCssExtractPlugin({
       filename: 'app.css'

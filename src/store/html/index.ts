@@ -9,11 +9,14 @@ class Html {
     this.setTagPosition(component.targetKey, left, top)
   }
   @action setTagActive = (key) => {
-    this.tags.forEach(item => {
-      item.active = item.targetKey === key
-    })
+    let tag = this.tags.find(item => item.active)
+    if(tag === undefined || tag.targetKey !== key){
+      this.tags.forEach(item => {
+        item.active = item.targetKey === key
+      })
+      this.tags = [...this.tags] // render
+    }
     ui.expandConsoleToggle(true) // 呼起调试控制台
-    this.tags = [...this.tags] // render
   }
   @action clearActive = () => {
     this.tags.forEach(item => {

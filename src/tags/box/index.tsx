@@ -6,14 +6,14 @@ class Box extends React.Component {
     attr: any,
     event: any,
     targetKey: any,
-    children: any,
     active: boolean,
     onClick: any
   }
   render() {
-    const { style, attr, event, targetKey, children, active, onClick } = this.props
+    const { style, attr, event, targetKey, active, onClick } = this.props
     let subAttr = JSON.parse(JSON.stringify(attr)) // deep
     delete subAttr.style // 删除这个属性
+    delete subAttr.label // 删除这个属性
     return <div
       className={active ? 'fast-ui-box-active' : 'fast-ui-box'}
       style={{
@@ -44,7 +44,7 @@ class Box extends React.Component {
             }))
           }
         }>
-        {children}
+        {attr.label}
       </div>
     </div>
   }

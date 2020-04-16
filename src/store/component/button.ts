@@ -2,10 +2,8 @@ class Button {
   name: string
   style: any
   attr: any
-  children: any
   constructor() {
     this.name = '按钮'
-    this.children = 'Button'
     this.style = {
       color: '#fff',
       background: '#333',
@@ -20,7 +18,8 @@ class Button {
       top: 0 
     }
     this.attr = {
-      className: 'yui-btn'
+      className: 'yui-btn',
+      label: 'Button'
     }
   }
 }

@@ -5,7 +5,7 @@ import { Box } from '../tags/index'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
 import SplitPane from 'react-split-pane'
-@inject('Html', 'Component', 'UI')
+@inject('Tags', 'Component', 'UI')
 @observer
 class Layout extends React.Component {
   props: any
@@ -32,7 +32,7 @@ class Layout extends React.Component {
     })
   }
   render() {
-    const { tags, setTagActive } = this.props.Html
+    const { tags, setTagActive, setDashedLine, setInitDashedLine } = this.props.Tags
     const { expandToggle, expand } = this.props.UI
     return <div className='app-layout'>
       <SplitPane
@@ -62,11 +62,24 @@ class Layout extends React.Component {
           <Canvas>
             {
               tags.map(item => {
-                return <Box {...item} onClick={
-                  (key) => {
-                    setTagActive(key)
+                return <Box
+                  {...item}
+                  onClick={
+                    (key) => {
+                      setTagActive(key)
+                    }
                   }
-                } />
+                  onDragStart={
+                    (e) => {
+                      setInitDashedLine(e.pageX , e.pageY) // 记录初始点击相对位置
+                    }
+                  }
+                  onDrag={
+                    (e, key) => {
+                      setDashedLine(e.pageX , e.pageY, key)
+                    }
+                  }
+                />
               })
             }
           </Canvas>

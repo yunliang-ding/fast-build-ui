@@ -14,7 +14,7 @@ const mappingLanguage = {
   'attr': 'json',
   'event': 'javascript'
 }
-@inject('UI', 'Html')
+@inject('UI', 'Tags')
 @observer
 class Console extends React.Component {
   props: any
@@ -34,7 +34,7 @@ class Console extends React.Component {
   render() {
     const { tabList, tab } = this.state
     const { expandConsoleToggle, expandConsole } = this.props.UI
-    const { tags, setTabValue } = this.props.Html
+    const { tags, setTabValue } = this.props.Tags
     const tag = tags.find(item => {
       return item.active
     })

@@ -19,7 +19,7 @@ class Button {
     }
     this.attr = {
       className: 'yui-btn',
-      label: 'Button'
+      label: '按钮'
     }
   }
 }

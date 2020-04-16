@@ -1,7 +1,8 @@
 import * as React from "react"
 import { observer, inject } from 'mobx-react'
+import { DashedLine } from '../index'
 import './index.less'
-@inject('UI', 'Html')
+@inject('UI', 'Tags')
 @observer
 class Canvas extends React.Component {
   props: any
@@ -12,7 +13,7 @@ class Canvas extends React.Component {
     return param.style
   }
   render() {
-    const { addTag, setTagPosition, clearActive } = this.props.Html
+    const { addTag, setTagPosition, clearActive, dashedLine } = this.props.Tags
     const style = this.getCanvasStyle()
     return <div
       ref={(node) => { this.appCanvasNode = node }}
@@ -38,6 +39,9 @@ class Canvas extends React.Component {
       }
     >
       {this.props.children}
+      {
+        dashedLine && <DashedLine style={dashedLine.style} key={dashedLine.key} />
+      }
     </div>
   }
 }

@@ -7,10 +7,12 @@ class Box extends React.Component {
     event: any,
     targetKey: any,
     active: boolean,
-    onClick: any
+    onClick: any,
+    onDrag: any,
+    onDragStart:any
   }
   render() {
-    const { style, attr, event, targetKey, active, onClick } = this.props
+    const { style, attr, event, targetKey, active, onClick, onDrag, onDragStart } = this.props
     let subAttr = JSON.parse(JSON.stringify(attr)) // deep
     delete subAttr.style // 删除这个属性
     delete subAttr.label // 删除这个属性
@@ -20,7 +22,8 @@ class Box extends React.Component {
         left: parseInt(style.left) - 1,
         top: parseInt(style.top) - 1,
         width: parseInt(style.width) + 2,
-        height: parseInt(style.height) + 2
+        height: parseInt(style.height) + 2,
+        zIndex: style['z-index']
       }}
       onClick={
         (e) => {
@@ -35,8 +38,14 @@ class Box extends React.Component {
         {...subAttr}
         {...event}
         draggable={true}
+        onDrag={
+          (event) => {
+            onDrag(event, targetKey)
+          }
+        }
         onDragStart={
           (event) => {
+            onDragStart(event, targetKey)
             event.dataTransfer.setData('data', JSON.stringify({
               key: targetKey,
               pageX: event.pageX,

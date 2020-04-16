@@ -5,7 +5,7 @@ import { Box } from '../tags/index'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
 import SplitPane from 'react-split-pane'
-@inject('Html', 'Component')
+@inject('Html', 'Component', 'UI')
 @observer
 class Layout extends React.Component {
   props: any
@@ -33,11 +33,12 @@ class Layout extends React.Component {
   }
   render() {
     const { tags } = this.props.Html
+    const { expandToggle, expand } = this.props.UI
     return <div className='app-layout'>
       <SplitPane
         split="vertical"
         step={10}
-        defaultSize={300}
+        size={expand ? 300 : 40}
         minSize={40}
         maxSize={300}
         onDragStarted={() => (document.body.style.cursor = 'col-resize')}
@@ -53,8 +54,8 @@ class Layout extends React.Component {
               this.siderMenu()
             }
           </div>
-          <div className='expand-toggle'>
-            <i className='iconfont icon-jiantou2'></i>
+          <div className='expand-toggle' onClick={expandToggle}>
+            <i className={expand ? 'iconfont icon-icon-jiantouzuo' : 'iconfont icon-jiantou2'}></i>
           </div>
         </div>
         <div className='app-layout-right'>

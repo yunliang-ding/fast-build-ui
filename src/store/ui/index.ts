@@ -20,6 +20,14 @@ class UI {
   @action setTypeList = (index, key, value) => {
     this.typeList[index][key] = value
   }
+  @observable expand = true
+  @action expandToggle = () => {
+    this.expand = !this.expand
+  }
+  @observable expandConsole = true
+  @action expandConsoleToggle = () => {
+    this.expandConsole = !this.expandConsole
+  }
 }
 const ui = new UI()
 export {

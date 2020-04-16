@@ -2,6 +2,11 @@ import * as React from 'react'
 import { observer, inject } from 'mobx-react'
 import { MonacoEdit } from '../index'
 import './index.less'
+const mapping = {
+  'style': '样式',
+  'attr': '属性',
+  'event': '事件'
+}
 @inject('UI')
 @observer
 class Console extends React.Component {
@@ -19,7 +24,13 @@ class Console extends React.Component {
   }
   render() {
     const { tabList, tab } = this.state
-    return <div className='app-console'>
+    const { expandConsoleToggle, expandConsole } = this.props.UI
+    return <div className='app-console' style={{
+      bottom: expandConsole ? 0 : -300
+    }}>
+      <div className='app-console-expand' onClick={expandConsoleToggle}>
+        <i className={expandConsole ? 'iconfont icon-xialadown' : 'iconfont icon-xiala1'}></i>
+      </div>
       <div className='app-console-header'>
         {
           tabList.map(item => {
@@ -35,7 +46,7 @@ class Console extends React.Component {
                 }
               }
             >
-              {item}
+              {mapping[item]}
             </div>
           })
         }

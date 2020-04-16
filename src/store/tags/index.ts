@@ -60,6 +60,16 @@ class Tags {
           }
         }
       }
+      if (tag.style.left === x + (currentTag.style.left - this.initDashedLine.x) && key !== tag.targetKey) { // 显示垂直方向测量
+        this.dashedLine = {
+          key: Math.random(),
+          style:{
+            left: tag.style.left,
+            top: 0,
+            height: '100%'
+          }
+        }
+      }
     })
   }
 }

@@ -71,12 +71,14 @@ class Layout extends React.Component {
                   }
                   onDragStart={
                     (e) => {
-                      setInitDashedLine(e.pageX , e.pageY) // 记录初始点击相对位置
+                      let { left, top } = document.querySelector('.app-canvas').getBoundingClientRect() // 相对画布的坐标
+                      setInitDashedLine(e.pageX - left, e.pageY - top) // 记录初始点击相对位置
                     }
                   }
                   onDrag={
                     (e, key) => {
-                      setDashedLine(e.pageX , e.pageY, key)
+                      let { left, top } = document.querySelector('.app-canvas').getBoundingClientRect() // 相对画布的坐标
+                      setDashedLine(e.pageX - left, e.pageY - top, key)
                     }
                   }
                 />

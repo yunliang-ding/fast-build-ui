@@ -14,17 +14,22 @@ const option: any = {
 class MonacoEdit extends React.Component {
   monacoNode: HTMLElement;
   props: any;
+  editorMonaco: any
   constructor(props) {
     super(props)
   }
+  componentWillReceiveProps(props) {
+    monaco.editor.setModelLanguage(this.editorMonaco.getModel(), props.language)
+    this.editorMonaco.setValue(props.value)
+  }
   init = (dom, options): void => {
-    let editorMonaco = monaco.editor.create(dom, Object.assign(options, option))
-    editorMonaco.onDidChangeModelContent(() => { // onChange 事件
-      console.log(editorMonaco.getValue())
+    this.editorMonaco = monaco.editor.create(dom, Object.assign(options, option))
+    this.editorMonaco.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => { // ctrl + s
+      this.props.onChange(this.editorMonaco.getValue())
     })
   }
   componentDidMount() {
-    this.init(this.monacoNode, this.props.options)
+    this.init(this.monacoNode, { ...this.props })
   }
   render() {
     return <div

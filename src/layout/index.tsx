@@ -32,7 +32,7 @@ class Layout extends React.Component {
     })
   }
   render() {
-    const { tags } = this.props.Html
+    const { tags, setTagActive } = this.props.Html
     const { expandToggle, expand } = this.props.UI
     return <div className='app-layout'>
       <SplitPane
@@ -62,25 +62,15 @@ class Layout extends React.Component {
           <Canvas>
             {
               tags.map(item => {
-                return <Box {...item} />
+                return <Box {...item} onClick={
+                  (key) => {
+                    setTagActive(key)
+                  }
+                } />
               })
             }
           </Canvas>
-          <Console
-            placement='bottom'
-            style={{
-              code: '{}',
-              language: 'css'
-            }}
-            attr={{
-              code: '{}',
-              language: 'json'
-            }}
-            event={{
-              code: '{}',
-              language: 'javascript'
-            }}
-          />
+          <Console placement='bottom' />
         </div>
       </SplitPane>
     </div>

@@ -9,7 +9,7 @@ class Button {
     this.children = 'Button'
     this.style = {
       color: '#fff',
-      background: '#1890ff',
+      background: '#333',
       width: 100,
       height: 40,
       display: 'flex',

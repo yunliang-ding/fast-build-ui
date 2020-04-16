@@ -12,12 +12,13 @@ class Canvas extends React.Component {
     return param.style
   }
   render() {
-    const { addTag, setTagPosition } = this.props.Html
+    const { addTag, setTagPosition, clearActive } = this.props.Html
     const style = this.getCanvasStyle()
     return <div
       ref={(node) => { this.appCanvasNode = node }}
       style={style}
       className='app-canvas'
+      onClick={clearActive}
       onDrop={
         (event) => {
           event.preventDefault()

@@ -21,12 +21,12 @@ class UI {
     this.typeList[index][key] = value
   }
   @observable expand = true
-  @action expandToggle = () => {
-    this.expand = !this.expand
+  @action expandToggle = (expand?: boolean) => {
+    this.expand = expand !== undefined ? expand : !this.expand
   }
-  @observable expandConsole = true
-  @action expandConsoleToggle = () => {
-    this.expandConsole = !this.expandConsole
+  @observable expandConsole = false
+  @action expandConsoleToggle = (expandConsole?: boolean) => {
+    this.expandConsole = expandConsole !== undefined ? expandConsole : !this.expandConsole
   }
 }
 const ui = new UI()

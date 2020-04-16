@@ -54,7 +54,7 @@ class Layout extends React.Component {
               this.siderMenu()
             }
           </div>
-          <div className='expand-toggle' onClick={expandToggle}>
+          <div className='expand-toggle' onClick={() => { expandToggle() }}>
             <i className={expand ? 'iconfont icon-icon-jiantouzuo' : 'iconfont icon-jiantou2'}></i>
           </div>
         </div>

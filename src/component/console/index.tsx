@@ -27,7 +27,7 @@ class Console extends React.Component {
     super(props)
   }
   stringifyCss = (cssObject) => {
-    return 'element{' + toStyleString(cssObject).replace(new RegExp(';','g'), ';') + '}'
+    return 'element{\n\t' + toStyleString(cssObject).replace(new RegExp(';','g'), ';\n\t') + '\n}'
   }
   parseCss = (cssString) => {
     return parse(cssString.replace('{', '').replace('}', ''))
@@ -52,7 +52,7 @@ class Console extends React.Component {
     return <div className='app-console' style={{
       bottom: expandConsole ? 0 : -300
     }}>
-      <div className='app-console-expand' onClick={expandConsoleToggle}>
+      <div className='app-console-expand' onClick={() => { expandConsoleToggle() }}>>
         <i className={expandConsole ? 'iconfont icon-xialadown' : 'iconfont icon-xiala1'}></i>
       </div>
       <div className='app-console-header'>

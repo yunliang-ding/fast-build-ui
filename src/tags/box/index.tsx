@@ -15,10 +15,10 @@ class Box extends React.Component {
     return <div
       className={active ? 'fast-ui-box-active' : 'fast-ui-box'}
       style={{
-        left: Number(style.left) - 1,
-        top: Number(style.top) - 1,
-        width: Number(style.width) + 2,
-        height: Number(style.height) + 2
+        left: parseInt(style.left) - 1,
+        top: parseInt(style.top) - 1,
+        width: parseInt(style.width) + 2,
+        height: parseInt(style.height) + 2
       }}
       onClick={
         (e) => {

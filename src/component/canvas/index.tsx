@@ -24,8 +24,9 @@ class Canvas extends React.Component {
       drawing,
       endDraw,
       resizeKey,
+      canResize,
       setCanResize,
-      resizeTagByKey,
+      resizeMoveing,
       resizeFinished
     } = this.props.Tags
     const style = this.getCanvasStyle()
@@ -48,11 +49,12 @@ class Canvas extends React.Component {
       }
       onMouseMove={
         (event) => {
+          console.log(resizeKey, canResize)
           let { left, top } = this.appCanvasNode.getBoundingClientRect()
           if (draw) {
             drawing(event.pageX - left, event.pageY - top)
-          } else if (resizeKey) {
-            resizeTagByKey(resizeKey, event.pageX - left, event.pageY - top)
+          } else if (resizeKey && canResize) {
+            resizeMoveing(resizeKey, event.pageX - left, event.pageY - top)
           }
         }
       }

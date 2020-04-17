@@ -25,6 +25,7 @@ class Box extends React.Component {
       onDrag,
       onDragStart,
       resizeKey,
+      canResize,
       setResizeKey
     } = this.props
     let subAttr = JSON.parse(JSON.stringify(attr)) // deep
@@ -45,7 +46,7 @@ class Box extends React.Component {
           ) {
             setResizeKey(targetKey) // 设置这个组件可调整大小
           } else {
-            setResizeKey(null) // 关闭
+            !canResize && setResizeKey(null) // 关闭, 正在调整不能关闭
           }
         }
       }

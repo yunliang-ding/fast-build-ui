@@ -132,20 +132,20 @@ class Tags {
   @action setResizeKey = (resizeKey: string) => {
     this.resizeKey = resizeKey
   }
-  @action resizeTagByKey = (key, x, y) => {
-    if (this.canResize) {
-      let currentTag = this.tags.find(item => item.targetKey === key)
-      $(`#${key}`).style.width = x - parseInt(currentTag.style.left)
-      $(`#${key}`).style.height = y - parseInt(currentTag.style.top)
-    }
+  @action resizeMoveing = (key, x, y) => {
+    let currentTag = this.tags.find(item => item.targetKey === key)
+    $(`#${key}`).style.width = x - parseInt(currentTag.style.left) + 2
+    $(`#${key}`).style.height = y - parseInt(currentTag.style.top) + 2
+    $(`#${key}`).children[0].style.width = x - parseInt(currentTag.style.left)
+    $(`#${key}`).children[0].style.height = y - parseInt(currentTag.style.top)
   }
   @action resizeFinished = (key, x, y) => {
     let currentTag = this.tags.find(item => item.targetKey === key)
     if(currentTag){
       currentTag.style.width = x - parseInt(currentTag.style.left)
       currentTag.style.height = y - parseInt(currentTag.style.top)
-      this.canResize = false
     }
+    this.canResize = false // 设置结束
   }
 }
 const tags = new Tags()

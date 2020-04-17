@@ -7,6 +7,10 @@ class Tags {
   @observable initDashedLine: any = {}
   @observable draw: any = false
   @observable drawStyle: any = {}
+  @observable resizeKey: string
+  @action getUnionKey = () => {
+    return `fast-ui-tag-${this.tags.length}`
+  }
   @action setDraw = (draw?: boolean) => {
     this.draw = draw !== undefined ? draw : !this.draw
   }
@@ -15,7 +19,7 @@ class Tags {
     this.initDashedLine.y = y
   }
   @action addTag = (component: any) => {
-    component.targetKey = component.targetKey || Math.random()
+    component.targetKey = component.targetKey || this.getUnionKey()
     this.tags.push({ ...component })
   }
   @action setTagActive = (key) => {
@@ -91,7 +95,7 @@ class Tags {
   @action endDraw = () => {
     if (this.draw) {
       runInAction(() => {
-        let targetKey = Math.random()
+        let targetKey = this.getUnionKey()
         this.addTag({ // 开始生成一个tag
           targetKey,
           style: {
@@ -114,11 +118,14 @@ class Tags {
         })
         this.draw = false // 结束绘制
         this.drawStyle = {} // reset
-        setTimeout(()=>{ // 暂时延迟处理
+        setTimeout(() => { // 暂时延迟处理
           this.setTagActive(targetKey)
         })
       })
     }
+  }
+  @action setResizeKey = (resizeKey: string) => {
+    this.resizeKey = resizeKey
   }
 }
 const tags = new Tags()

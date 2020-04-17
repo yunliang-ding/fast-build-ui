@@ -9,21 +9,54 @@ class Box extends React.Component {
     active: boolean,
     onClick: any,
     onDrag: any,
-    onDragStart:any
+    onDragStart: any,
+    resizeKey: any,
+    setResizeKey: any
   }
+  tagBoxNode: any
   render() {
-    const { style, attr, event, targetKey, active, onClick, onDrag, onDragStart } = this.props
+    const {
+      style,
+      attr,
+      event,
+      targetKey,
+      active,
+      onClick,
+      onDrag,
+      onDragStart,
+      resizeKey,
+      setResizeKey
+    } = this.props
     let subAttr = JSON.parse(JSON.stringify(attr)) // deep
     delete subAttr.style // 删除这个属性
     delete subAttr.label // 删除这个属性
     return <div
+      id={targetKey}
+      ref={(node) => { this.tagBoxNode = node }}
       className={active ? 'fast-ui-box-active' : 'fast-ui-box'}
+      onMouseMove={ // 鼠标移动到右下显示 nwse-resize
+        (e) => {
+          let { left, top } = this.tagBoxNode.getBoundingClientRect()
+          if (active &&
+            e.pageX >= parseInt(style.width) + left - 5 &&
+            e.pageX <= parseInt(style.width) + left + 5 &&
+            e.pageY >= parseInt(style.height) + top - 5 &&
+            e.pageY <= parseInt(style.height) + top + 5
+          ) {
+            setResizeKey(targetKey) // 设置这个组件可调整大小
+          } else {
+            setResizeKey(null) // 关闭
+          }
+        }
+      }
       style={{
         left: parseInt(style.left) - 1,
         top: parseInt(style.top) - 1,
         width: parseInt(style.width) + 2,
         height: parseInt(style.height) + 2,
-        zIndex: style['z-index']
+        padidng: 1,
+        zIndex: style['z-index'],
+        cursor: resizeKey === targetKey ? 'nwse-resize' : 'move'
       }}
       onClick={
         (e) => {

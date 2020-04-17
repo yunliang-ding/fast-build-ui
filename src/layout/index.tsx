@@ -1,6 +1,6 @@
 import * as React from "react"
 import './index.less'
-import { Canvas, Console } from 'component'
+import { Canvas, Console, Tools } from 'component'
 import { Box } from '../tags/index'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
@@ -86,6 +86,7 @@ class Layout extends React.Component {
             }
           </Canvas>
           <Console placement='bottom' />
+          <Tools />
         </div>
       </SplitPane>
     </div>

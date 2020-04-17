@@ -5,14 +5,18 @@ class Tags {
   @observable tags = []
   @observable dashedLine: any = null
   @observable initDashedLine: any = {}
+  @observable draw: any = false
+  @observable drawStyle: any = {}
+  @action setDraw = (draw?: boolean) => {
+    this.draw = draw !== undefined ? draw : !this.draw
+  }
   @action setInitDashedLine = (x: number, y: number) => {
     this.initDashedLine.x = x
     this.initDashedLine.y = y
   }
-  @action addTag = (component: any, left, top) => {
+  @action addTag = (component: any) => {
     component.targetKey = Math.random()
     this.tags.push({ ...component })
-    this.setTagPosition(component.targetKey, left, top)
   }
   @action setTagActive = (key) => {
     let tag = this.tags.find(item => item.active)
@@ -25,9 +29,7 @@ class Tags {
     ui.expandConsoleToggle(true) // 呼起调试控制台
   }
   @action clearActive = () => {
-    this.tags.forEach(item => {
-      item.active = false
-    })
+    this.tags.forEach(item => item.active = false)
     ui.expandConsoleToggle(false) // 关闭调试控制台
     this.tags = [...this.tags] // render
   }
@@ -53,7 +55,7 @@ class Tags {
       if (tag.style.top === y + (currentTag.style.top - this.initDashedLine.y) && key !== tag.targetKey) { // 显示水平方向测量
         this.dashedLine = {
           key: Math.random(),
-          style:{
+          style: {
             top: tag.style.top,
             left: 0,
             width: '100%'
@@ -63,7 +65,7 @@ class Tags {
       if (tag.style.left === x + (currentTag.style.left - this.initDashedLine.x) && key !== tag.targetKey) { // 显示垂直方向测量
         this.dashedLine = {
           key: Math.random(),
-          style:{
+          style: {
             left: tag.style.left,
             top: 0,
             height: '100%'
@@ -71,6 +73,45 @@ class Tags {
         }
       }
     })
+  }
+  @action startDraw = (x: number, y: number) => {
+    if (this.draw) { // 设置初始位置
+      this.drawStyle.left = x
+      this.drawStyle.top = y
+      this.drawStyle = { ...this.drawStyle } // render
+    }
+  }
+  @action drawing = (x: number, y: number) => {
+    if (this.draw) {
+      this.drawStyle.width = Math.abs(x - this.drawStyle.left)
+      this.drawStyle.height = Math.abs(y - this.drawStyle.top)
+      this.drawStyle.key = Math.random()
+    }
+  }
+  @action endDraw = () => {
+    if (this.draw) {
+      this.addTag({ // 开始生成一个tag
+        style: {
+          color: '#fff',
+          background: '#333',
+          width: this.drawStyle.width,
+          height: this.drawStyle.height,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          fontSize: 12,
+          left: this.drawStyle.left,
+          top: this.drawStyle.top
+        },
+        attr: {
+          className: 'yui-btn',
+          label: 'Box'
+        }
+      })
+      this.draw = false // 结束绘制
+      this.drawStyle = {} // reset
+    }
   }
 }
 const tags = new Tags()

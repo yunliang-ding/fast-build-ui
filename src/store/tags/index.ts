@@ -1,4 +1,4 @@
-import { observable, action, useStrict, toJS } from 'mobx'
+import { observable, action, useStrict, toJS, runInAction } from 'mobx'
 import { ui } from '../ui/index'
 useStrict(true)
 class Tags {
@@ -15,7 +15,7 @@ class Tags {
     this.initDashedLine.y = y
   }
   @action addTag = (component: any) => {
-    component.targetKey = Math.random()
+    component.targetKey = component.targetKey || Math.random()
     this.tags.push({ ...component })
   }
   @action setTagActive = (key) => {
@@ -90,27 +90,34 @@ class Tags {
   }
   @action endDraw = () => {
     if (this.draw) {
-      this.addTag({ // 开始生成一个tag
-        style: {
-          color: '#fff',
-          background: '#333',
-          width: this.drawStyle.width,
-          height: this.drawStyle.height,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'fixed',
-          fontSize: 12,
-          left: this.drawStyle.left,
-          top: this.drawStyle.top
-        },
-        attr: {
-          className: 'yui-btn',
-          label: 'Box'
-        }
+      runInAction(() => {
+        let targetKey = Math.random()
+        this.addTag({ // 开始生成一个tag
+          targetKey,
+          style: {
+            color: '#fff',
+            background: '#333',
+            width: this.drawStyle.width,
+            height: this.drawStyle.height,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'fixed',
+            fontSize: 12,
+            left: this.drawStyle.left,
+            top: this.drawStyle.top
+          },
+          attr: {
+            className: 'yui-box',
+            label: ''
+          }
+        })
+        this.draw = false // 结束绘制
+        this.drawStyle = {} // reset
+        setTimeout(()=>{ // 暂时延迟处理
+          this.setTagActive(targetKey)
+        })
       })
-      this.draw = false // 结束绘制
-      this.drawStyle = {} // reset
     }
   }
 }

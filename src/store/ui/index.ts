@@ -28,6 +28,10 @@ class UI {
   @action expandConsoleToggle = (expandConsole?: boolean) => {
     this.expandConsole = expandConsole !== undefined ? expandConsole : !this.expandConsole
   }
+  @observable expandTools = true
+  @action expandToolsToggle = (expandTools?: boolean) => {
+    this.expandTools = expandTools !== undefined ? expandTools : !this.expandTools
+  }
 }
 const ui = new UI()
 export {

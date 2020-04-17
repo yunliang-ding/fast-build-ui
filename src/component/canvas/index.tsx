@@ -19,7 +19,6 @@ class Canvas extends React.Component {
     if (draw) {
       style.cursor = 'crosshair' // 开启划线
     }
-    console.log('render-Canvas')
     return <div
       ref={(node) => { this.appCanvasNode = node }}
       style={style}

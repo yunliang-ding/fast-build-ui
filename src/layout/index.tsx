@@ -62,6 +62,7 @@ class Layout extends React.Component {
           <Canvas>
             {
               tags.map(item => {
+                console.log('item.active', item.active)
                 return <Box
                   {...item}
                   onClick={

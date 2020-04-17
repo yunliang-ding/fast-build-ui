@@ -1,5 +1,6 @@
 import { observable, action, useStrict, toJS, runInAction } from 'mobx'
 import { ui } from '../ui/index'
+const $: any = document.querySelector.bind(document)
 useStrict(true)
 class Tags {
   @observable tags = []
@@ -8,6 +9,10 @@ class Tags {
   @observable draw: any = false
   @observable drawStyle: any = {}
   @observable resizeKey: string
+  @observable canResize: boolean
+  @action setCanResize = (canResize: boolean) => { // 是否可调整
+    this.canResize = canResize
+  }
   @action getUnionKey = () => {
     return `fast-ui-tag-${this.tags.length}`
   }
@@ -126,6 +131,21 @@ class Tags {
   }
   @action setResizeKey = (resizeKey: string) => {
     this.resizeKey = resizeKey
+  }
+  @action resizeTagByKey = (key, x, y) => {
+    if (this.canResize) {
+      let currentTag = this.tags.find(item => item.targetKey === key)
+      $(`#${key}`).style.width = x - parseInt(currentTag.style.left)
+      $(`#${key}`).style.height = y - parseInt(currentTag.style.top)
+    }
+  }
+  @action resizeFinished = (key, x, y) => {
+    let currentTag = this.tags.find(item => item.targetKey === key)
+    if(currentTag){
+      currentTag.style.width = x - parseInt(currentTag.style.left)
+      currentTag.style.height = y - parseInt(currentTag.style.top)
+      this.canResize = false
+    }
   }
 }
 const tags = new Tags()

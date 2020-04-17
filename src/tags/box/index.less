@@ -1,7 +1,13 @@
 .fast-ui-box, .fast-ui-box-active{
   cursor: move;
   position: fixed;
+  user-select: none;
 }
 .fast-ui-box-active{
   border: 1px dashed #1890ff;
+  animation: box-active .5s infinite;
+}
+@keyframes box-active{
+  from {border-style: dotted}
+  to {border-style: dashed}
 }

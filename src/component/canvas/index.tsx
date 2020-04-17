@@ -14,7 +14,20 @@ class Canvas extends React.Component {
     return param.style
   }
   render() {
-    const { addTag, setTagPosition, clearActive, dashedLine, draw, startDraw, drawing, endDraw } = this.props.Tags
+    const {
+      addTag,
+      setTagPosition,
+      clearActive,
+      dashedLine,
+      draw,
+      startDraw,
+      drawing,
+      endDraw,
+      resizeKey,
+      setCanResize,
+      resizeTagByKey,
+      resizeFinished
+    } = this.props.Tags
     const style = this.getCanvasStyle()
     if (draw) {
       style.cursor = 'crosshair' // 开启划线
@@ -28,15 +41,28 @@ class Canvas extends React.Component {
         (event) => {
           let { left, top } = this.appCanvasNode.getBoundingClientRect()
           startDraw(event.pageX - left, event.pageY - top)
+          if(resizeKey){
+            setCanResize(true)
+          }
         }
       }
       onMouseMove={
         (event) => {
           let { left, top } = this.appCanvasNode.getBoundingClientRect()
-          drawing(event.pageX - left, event.pageY - top)
+          if (draw) {
+            drawing(event.pageX - left, event.pageY - top)
+          } else if (resizeKey) {
+            resizeTagByKey(resizeKey, event.pageX - left, event.pageY - top)
+          }
         }
       }
-      onMouseUp={endDraw}
+      onMouseUp={
+        (e) => {
+          endDraw(e)
+          let { left, top } = this.appCanvasNode.getBoundingClientRect()
+          resizeFinished(resizeKey, e.pageX - left, e.pageY - top)
+        }
+      }
       onDrop={
         (event) => {
           event.preventDefault()

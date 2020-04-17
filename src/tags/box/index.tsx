@@ -54,7 +54,6 @@ class Box extends React.Component {
         top: parseInt(style.top) - 1,
         width: parseInt(style.width) + 2,
         height: parseInt(style.height) + 2,
-        padidng: 1,
         zIndex: style['z-index'],
         cursor: resizeKey === targetKey ? 'nwse-resize' : 'move'
       }}
@@ -70,7 +69,7 @@ class Box extends React.Component {
         style={style}
         {...subAttr}
         {...event}
-        draggable={true}
+        draggable={resizeKey !== targetKey}
         onDrag={
           (event) => {
             onDrag(event, targetKey)

@@ -1,0 +1,10 @@
+{
+  "selectOnLineNumbers": true,
+  "automaticLayout": true,
+  "fontSize": 13,
+  "fontWeight": "400",
+  "tabSize": 2,
+  "minimap": {
+    "enabled": false
+  }
+}

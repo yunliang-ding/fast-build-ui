@@ -20,7 +20,8 @@ const config = {
   entry: './src/index.tsx',
   output: {
     path: process.env.NODE_ENV == "production" ? path.resolve(__dirname, './out/frontend/public/') : path.resolve(__dirname, 'www/'),
-    filename: 'app.js'
+    filename: 'app.js',
+    publicPath: 'https://yun-static.gz.bcebos.com/mock-ui/'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -97,7 +98,7 @@ const config = {
     contentBase: './www'
   },
   optimization: process.env.NODE_ENV === "production" ? {
-    minimize: false
+    minimize: true
   } : {},
   performance: {
     hints: false

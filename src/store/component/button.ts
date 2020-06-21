@@ -18,7 +18,7 @@ class Button {
       top: 0 
     }
     this.attr = {
-      className: 'yui-btn',
+      className: 'fast-ui-btn',
       label: '按钮'
     }
   }

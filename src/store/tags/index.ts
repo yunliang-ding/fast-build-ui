@@ -140,11 +140,13 @@ class Tags {
     $(`#${key}`).children[0].style.height = y - parseInt(currentTag.style.top)
   }
   @action resizeFinished = (key, x, y) => {
+    console.log('resizeFinished', key, x, y, this.canResize)
     let currentTag = this.tags.find(item => item.targetKey === key)
     if(currentTag){
       currentTag.style.width = x - parseInt(currentTag.style.left)
       currentTag.style.height = y - parseInt(currentTag.style.top)
     }
+    this.resizeKey = null
     this.canResize = false // 设置结束
   }
 }

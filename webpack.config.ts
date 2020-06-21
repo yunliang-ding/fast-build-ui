@@ -37,7 +37,7 @@ const config = {
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
-      exclude: [/node_modules/, /public/],
+      exclude: [/node_modules/],
       use: {
         loader: 'babel-loader',
         options: {
@@ -86,7 +86,7 @@ const config = {
     },
     {
       test: /\.(tsx|ts)?$/,
-      exclude: [/node_modules/, /public/],
+      exclude: [/node_modules/],
       use: ['ts-loader']
     }]
   },

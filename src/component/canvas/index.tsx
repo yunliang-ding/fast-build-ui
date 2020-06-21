@@ -41,7 +41,9 @@ class Canvas extends React.Component {
       onMouseDown={
         (event) => {
           let { left, top } = this.appCanvasNode.getBoundingClientRect()
-          startDraw(event.pageX - left, event.pageY - top)
+          if (draw) {
+            startDraw(event.pageX - left, event.pageY - top)
+          }
           if(resizeKey){
             setCanResize(true)
           }
@@ -49,7 +51,6 @@ class Canvas extends React.Component {
       }
       onMouseMove={
         (event) => {
-          console.log(resizeKey, canResize)
           let { left, top } = this.appCanvasNode.getBoundingClientRect()
           if (draw) {
             drawing(event.pageX - left, event.pageY - top)

@@ -11,6 +11,7 @@ class Box extends React.Component {
     onDrag: any,
     onDragStart: any,
     resizeKey: any,
+    canResize:any,
     setResizeKey: any
   }
   tagBoxNode: any

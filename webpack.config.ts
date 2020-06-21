@@ -19,7 +19,7 @@ function getIPAdress() {
 const config = {
   entry: './src/index.tsx',
   output: {
-    path: process.env.NODE_ENV == "production" ? path.resolve(__dirname, './out/frontend/public/') : path.resolve(__dirname, 'www/'),
+    path: process.env.NODE_ENV == "production" ? path.resolve(__dirname, './out/public/') : path.resolve(__dirname, 'www/'),
     filename: 'app.js'
   },
   resolve: {
@@ -36,7 +36,7 @@ const config = {
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
-      exclude: [/node_modules/, /public/],
+      exclude: [/node_modules/],
       use: {
         loader: 'babel-loader',
         options: {
@@ -85,7 +85,7 @@ const config = {
     },
     {
       test: /\.(tsx|ts)?$/,
-      exclude: [/node_modules/, /public/],
+      exclude: [/node_modules/],
       use: ['ts-loader']
     }]
   },
